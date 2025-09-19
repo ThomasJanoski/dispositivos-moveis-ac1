@@ -59,7 +59,7 @@
         android:layout_marginEnd="16dp"
         android:text="Confirmar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editAuthor" />
+        app:layout_constraintTop_toBottomOf="@+id/avisoForms" />
 
     <View
         android:id="@+id/divider2"
@@ -76,5 +76,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/divider2"></LinearLayout>
+
+    <TextView
+        android:id="@+id/avisoForms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:textAlignment="center"
+        android:textColor="#E71010"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editAuthor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
