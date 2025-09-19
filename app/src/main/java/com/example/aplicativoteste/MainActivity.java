@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         txtTitulo.setTextAlignment(TEXT_ALIGNMENT_CENTER);
 
         TextView txtAutor = new TextView(this);
-        txtAutor.setText(autor);
+        txtAutor.setText(String.format("Autor: %s", autor));
         txtAutor.setTextSize(16);
         txtAutor.setTextAlignment(TEXT_ALIGNMENT_CENTER);
 
