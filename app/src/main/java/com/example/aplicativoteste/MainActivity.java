@@ -1,0 +1,90 @@
+package com.example.aplicativoteste;
+
+import static android.view.View.TEXT_ALIGNMENT_CENTER;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    public void carregarLivros() {
+
+    }
+
+    public void adicionarLivro(String titulo, String autor) {
+        Log.d("dev-log-test", "Adicionando livro");
+        LinearLayout containerLivros = findViewById(R.id.containerLivros);
+
+        TextView txtTitulo = new TextView(this);
+        txtTitulo.setText(titulo);
+        txtTitulo.setTextSize(20);
+        txtTitulo.setPadding(0, 20, 0, 0);
+        txtTitulo.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+
+        TextView txtAutor = new TextView(this);
+        txtAutor.setText(autor);
+        txtAutor.setTextSize(16);
+        txtAutor.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+
+        SwitchCompat leituraConcluida = new SwitchCompat(this);
+        leituraConcluida.setChecked(false);
+
+        Button deleteButton = new Button(this);
+        deleteButton.setText("Excluir");
+        deleteButton.setOnClickListener(v -> {
+            containerLivros.removeView(txtTitulo);
+            containerLivros.removeView(txtAutor);
+            containerLivros.removeView(leituraConcluida);
+            containerLivros.removeView(deleteButton);
+        });
+
+        containerLivros.addView(txtTitulo);
+        containerLivros.addView(txtAutor);
+        containerLivros.addView(leituraConcluida);
+        containerLivros.addView(deleteButton);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Log.d("dev-log-test", "MainActivity - on create");
+
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        EditText tituloLivro = findViewById(R.id.editTitle);
+        EditText autorLivro = findViewById(R.id.editAuthor);
+        Button confirmButton = findViewById(R.id.btnConfirmAdd);
+
+        confirmButton.setOnClickListener(v -> {
+            String titulo = tituloLivro.getText().toString();
+            String autor = autorLivro.getText().toString();
+            adicionarLivro(titulo, autor);
+        });
+    }
+}
