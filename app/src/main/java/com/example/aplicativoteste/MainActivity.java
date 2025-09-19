@@ -25,10 +25,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public void carregarLivros() {
-
-    }
-
     public void adicionarLivro(String titulo, String autor) {
         Log.d("dev-log-test", "Adicionando livro");
         LinearLayout containerLivros = findViewById(R.id.containerLivros);
@@ -44,21 +40,31 @@ public class MainActivity extends AppCompatActivity {
         txtAutor.setTextSize(16);
         txtAutor.setTextAlignment(TEXT_ALIGNMENT_CENTER);
 
-        SwitchCompat leituraConcluida = new SwitchCompat(this);
-        leituraConcluida.setChecked(false);
+        SwitchCompat switchLeitura = new SwitchCompat(this);
+        switchLeitura.setChecked(false);
+        switchLeitura.setText("Leitura Pendente");
+        switchLeitura.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+
+        switchLeitura.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                switchLeitura.setText("Leitura Concluída");
+            } else {
+                switchLeitura.setText("Leitura Pendente");
+            }
+        });
 
         Button deleteButton = new Button(this);
         deleteButton.setText("Excluir");
         deleteButton.setOnClickListener(v -> {
             containerLivros.removeView(txtTitulo);
             containerLivros.removeView(txtAutor);
-            containerLivros.removeView(leituraConcluida);
+            containerLivros.removeView(switchLeitura);
             containerLivros.removeView(deleteButton);
         });
 
         containerLivros.addView(txtTitulo);
         containerLivros.addView(txtAutor);
-        containerLivros.addView(leituraConcluida);
+        containerLivros.addView(switchLeitura);
         containerLivros.addView(deleteButton);
     }
 
@@ -84,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(v -> {
             String titulo = tituloLivro.getText().toString();
             String autor = autorLivro.getText().toString();
+
+            tituloLivro.setText("");
+            autorLivro.setText("");
             adicionarLivro(titulo, autor);
         });
     }
